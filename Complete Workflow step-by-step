@@ -1,0 +1,65 @@
+Complete the Linux lab
+
+Step 1. Connect to the application server
+Open your terminal:
+ssh user@app-server-ip
+
+
+Use the SSH credentials provided by KodeKloud.
+Step 2. Create a temporary user
+For the example, we'll use yousuf and an example future expiration date.
+sudo useradd -m -e 2026-12-31 yousuf
+
+
+Explanation:
+Option	Purpose
+useradd	Creates a Linux user
+-m	Creates the home directory
+-e	Sets account expiration date
+2026-12-31	Expiration date
+yousuf	Username
+
+Important: Use the exact username and expiration date specified in your actual KodeKloud task. The date above is just an example.
+Step 3. Verify user creation
+getent passwd yousuf
+
+
+Expected output format:
+yousuf:x:1003:1004::/home/yousuf:/bin/bash
+
+
+UID and GID may differ.
+Step 4. Verify the home directory
+ls -ld /home/yousuf
+
+
+Step 5. Check user identity
+id yousuf
+
+
+This displays the UID, GID and group memberships.
+Step 6. Test user access
+sudo su - yousuf
+
+
+Before the expiry date, the account should allow login, assuming no other restrictions exist.
+
+Exit the account:
+exit
+
+
+Step 7. Verify account expiration
+sudo chage -l yousuf
+
+
+Look for:
+Account expires : Dec 31, 2026
+
+
+Verification complete
+The account has an expiration date configured.
+
+Remember the difference:
+- Account expiration: disables account login after the specified date.
+- Password expiration: requires password changes according to password-aging settings.
+- An expired account remains in the system until an administrator removes it.
